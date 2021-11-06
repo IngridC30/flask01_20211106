@@ -183,8 +183,9 @@ def aqi_chart_24h():
     aqi_list = list()
     time_list = list()
     for item in data:
-        aqi_list.append( float(item['aqi']) )        
-        time_list.append(item['time'])
+        aqi_list.append( float(item['aqi']) )       
+        tm = item['time'].strftime("%m/%d %H:%M")        
+        time_list.append(tm)
         
     # plot
     #plt.plot(aqi_list)    
