@@ -141,8 +141,7 @@ def aqi_chart_24h():
     time_list = list()
     for item in data:
         aqi_list.append( float(item['aqi']) )        
-        print(time.strftime("%Y-%m-%d %H",  item['time']))
-        time_list.append( time.strftime("%Y-%m-%d %H",  item['time']) )
+        time_list.append( item['time']) )
         # time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 時間格式
      
     
