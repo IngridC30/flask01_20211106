@@ -50,18 +50,6 @@ def hello():
     # 開始產生地圖
     location = geocoder.osm('臺北市').latlng
     m = folium.Map(location=location, zoom_start=14)
-    for item in data[1:]:
-        try:            
-            area = item['']
-            name = item['sna']
-            total = item['tot']
-            n = item['sbi']
-            lat = item['lat']
-            lng = item['lng']
-
-    # 開始產生地圖
-    location = geocoder.osm('臺北市').latlng
-    m = folium.Map(location=location, zoom_start=14)
     for item in data:
         try:                        
             area = item['sarea']
@@ -85,7 +73,7 @@ def hello():
             
         except Exception as e:
             print(e.args)    
-            
+
     m.save('./map_tpe_youbike_parking.html')
 
     return send_file('./map_tpe_youbike_parking.html')
