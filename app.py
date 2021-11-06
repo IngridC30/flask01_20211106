@@ -140,9 +140,12 @@ def aqi_chart_24h():
     aqi_list = list()
     time_list = list()
     for item in data:
-        aqi_list.append( float(item['aqi']) )
-        time_list.append( item['time'] )
-        
+        aqi_list.append( float(item['aqi']) )        
+        print(time.strftime("%Y-%m-%d %H",  item['time']))
+        time_list.append( time.strftime("%Y-%m-%d %H",  item['time']) )
+        # time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 時間格式
+     
+    
     # plot
     #plt.plot(aqi_list)    
     plt.plot(time_list, aqi_list, '-o')
