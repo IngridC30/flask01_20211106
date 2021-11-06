@@ -189,9 +189,9 @@ def aqi_chart_24h():
         #文字
         print(dt3)
         #文字轉日期,轉時間
-        tm = datetime.strptime(dt3, '%Y-%m-%d %H:%M:%S.%f').strftime('%m-%d %H')        
-        print(tm)     
-        time_list.append(tm)
+        #tm = datetime.strptime(dt3, '%Y-%m-%d %H:%M:%S.%f').strftime('%m-%d %H')        
+        #print(tm)     
+        time_list.append(dt3)
         
     # plot
     #plt.plot(aqi_list)    
