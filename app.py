@@ -45,20 +45,18 @@ def hello():
     url = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json'
     r = requests.get(url)
     print(r)
-    data = r.json()
+    data = r.json()    
 
     # 開始產生地圖
     location = geocoder.osm('臺北市').latlng
     m = folium.Map(location=location, zoom_start=14)
     for item in data[1:]:
-        try:
-            area = item['sarea'] 
+        try:            
             name = item['sna']
             total = item['tot']
             n = item['sbi']
             lat = item['lat']
             lng = item['lng']
-            info = '%s<br>可借數量:%s<br>停車格數：%s' %(name, fee, totPark)
 
             for item in data:                
                 if int(n)<5 and int(n)>0:
@@ -70,7 +68,6 @@ def hello():
                 else:
                     folium.Marker([float(lat), float(lng)], popup=name+'<br>剩餘車輛:%s/%s' %(n,total),
                                 icon=folium.Icon(color='green', prefix='fa', icon='fa-bicycle')).add_to(m)
-
             
         except Exception as e:
             print(e.args)    
