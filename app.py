@@ -37,45 +37,6 @@ def hello():
     name = request.args.get('name')
     return 'hello ' + name
 
-#####################
-#2021.11.06, INGRID ADD.
-# HW1 - TPE YOU BIKE2.O MAP
-#####################
-@app.route("/map/tpe-youbike2Parking", methods=['GET'])
-    url = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json'
-    r = requests.get(url)
-    print(r)
-    data = r.json()    
-
-    # 開始產生地圖
-    location = geocoder.osm('臺北市').latlng
-    m = folium.Map(location=location, zoom_start=14)
-    for item in data[1:]:
-        try:            
-            name = item['sna']
-            total = item['tot']
-            n = item['sbi']
-            lat = item['lat']
-            lng = item['lng']
-
-            for item in data:                
-                if int(n)<5 and int(n)>0:
-                    folium.Marker([float(lat), float(lng)], popup=name+'<br>剩餘車輛:%s/%s' %(n,total),
-                                icon=folium.Icon(color='red', prefix='fa', icon='fa-bicycle')).add_to(m)
-                elif int(n)==0:
-                    folium.Marker([float(lat), float(lng)], popup=name+'<br>剩餘車輛:%s/%s' %(n,total),
-                                icon=folium.Icon(color='black', prefix='fa', icon='fa-window-close')).add_to(m)
-                else:
-                    folium.Marker([float(lat), float(lng)], popup=name+'<br>剩餘車輛:%s/%s' %(n,total),
-                                icon=folium.Icon(color='green', prefix='fa', icon='fa-bicycle')).add_to(m)
-            
-        except Exception as e:
-            print(e.args)    
-            
-    m.save('./map_tpe_youbike_parking.html')
-
-    return send_file('./map_tpe_youbike_parking.html')
-
 @app.route("/map/kh-parking", methods=['GET'])
 def map_kh_parking():
     url = "https://data.kcg.gov.tw/dataset/449e45d9-dead-4873-95a9-cc34dabbb3af/resource/fe3f93da-9673-4f7b-859c-9017d793f798/download/108.6.21.csv"
