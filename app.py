@@ -75,7 +75,6 @@ def hello():
     m.save('./map_tpe_youbike_parking.html')
 
     return send_file('./map_tpe_youbike_parking.html')
-         
 
 @app.route("/map/kh-parking", methods=['GET'])
 def map_kh_parking():
