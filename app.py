@@ -42,7 +42,7 @@ def hello():
 # HW1 - TPE YOU BIKE2.O MAP
 #####################
 @app.route("/map/tpe-youbike2Parking", methods=['GET'])
-    url = '	https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json'
+    url = 'https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json'
     r = requests.get(url)
     print(r)
     data = r.json()
