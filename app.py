@@ -145,11 +145,12 @@ def aqi_chart_24h():
         
     # plot
     #plt.plot(aqi_list)    
-    #下方x軸數值很奇怪, 加入反轉.
-    plt.xticks(time_list, rotation=90)
     plt.plot(time_list, aqi_list, '-o')
     plt.xlabel('時間')
     plt.ylabel('AQI')
+
+    #下方x軸數值很奇怪, 加入反轉. 程式擺在數值後面.
+    plt.xticks(time_list, rotation=90)    
     
     plt.grid()    
     plt.savefig('img.png')
