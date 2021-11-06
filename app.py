@@ -211,7 +211,7 @@ def pm25_data():
     if not sid:
         return jsonify({'result':'NG', 'log':'sid miss'})
 
-    url = 'https://data.kcg.gov.tw/dataset/air-quality-human-station2016-2018/resource/ed5eacda-ee80-44b4-aa9a-88bbaf054512'
+    url = 'https://data.kcg.gov.tw/dataset/e9aa2660-c4eb-46e1-a4fd-758f59c70e67/resource/ed5eacda-ee80-44b4-aa9a-88bbaf054512/download/2018humanstation.csv'
     r = requests.get(url)
     print(r)
     decoded_content = r.content.decode('utf-8')
