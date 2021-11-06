@@ -222,9 +222,9 @@ def pm25_data():
     time_list = list()
     for item in data_list[1:]:
 
-        name = item[1]
-        date = item[2]
-        tsp = item[3]        
+        name = item['Name']
+        date = item['Date']
+        tsp = item['TSP']
 
         if name==sid:
             tsp_list.append(tsp)       
