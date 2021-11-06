@@ -211,7 +211,7 @@ def pm25_data():
     if not sid:
         return jsonify({'result':'NG', 'log':'sid miss'})
 
-    url = 'https://data.kcg.gov.tw/dataset/e9aa2660-c4eb-46e1-a4fd-758f59c70e67/resource/ed5eacda-ee80-44b4-aa9a-88bbaf054512/download/2018humanstation.csv'
+    url = 'https://data.kcg.gov.tw/dataset/air-quality-human-station2016-2018/resource/ed5eacda-ee80-44b4-aa9a-88bbaf054512'
     r = requests.get(url)
     print(r)
     decoded_content = r.content.decode('utf-8')
@@ -227,11 +227,11 @@ def pm25_data():
         tsp = item[3]        
 
         if name==sid:
-            pm25_list.append(tsp)       
+            tsp_list.append(tsp)       
             time_list.append(date)        
 
     # plot
-    plt.plot(time_list, aqi_list, '-o')
+    plt.plot(time_list, tsp_list, '-o')
     plt.xlabel('時間')
     plt.ylabel('TSP')
 
