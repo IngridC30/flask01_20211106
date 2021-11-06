@@ -139,13 +139,18 @@ def aqi_chart_24h():
 
     aqi_list = list()
     for item in data:
-        aqi_list.append( float(item['aqi']) )
+        #aqi_list.append( float(item['aqi']) )
+        plt.plot(tm_start, float(item['aqi']), '-o', label=key)
 
     # plot
-    plt.plot(aqi_list)
-    plt.grid()
+    #plt.plot(aqi_list)    
+    plt.xlabel('時間', fontproperties = font)
+    plt.ylabel('AQI', fontproperties = font)
+    plt.legend(prop=font, bbox_to_anchor=(1.0, 1.0))
+
+    plt.grid()    
     plt.savefig('img.png')
-    plt.close()
+    plt.close()    
     return send_file('img.png', mimetype='image/png')
 
 #####################
