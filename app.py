@@ -204,37 +204,43 @@ def aqi_chart_24h():
 #2021.11.06, INGRID ADD.
 # HW2 - 空氣品質圖表化
 #####################    
-@app.route('/pm25/data', methods=['GET'])
+@app.route('/tsp/data', methods=['GET'])
 def pm25_data():
 
     sid = request.args.get('sid')
     if not sid:
         return jsonify({'result':'NG', 'log':'sid miss'})
 
-    url = 'https://data.epa.gov.tw/api/v1/aqx_p_434?limit=1000&api_key=9be7b239-557b-4c10-9775-78cadfc555e9&sort=ImportDate%20desc&format=json'
     r = requests.get(url)
     print(r)
-    data = r.json()
+    decoded_content = r.content.decode('utf-8')
+    cr = csv.reader(decoded_content.splitlines(), delimiter=',')
+    data_list = list(cr)
 
-    pm25_list = list()
+    tsp_list = list()
     time_list = list()
-    for item in data:
-        if item['SiteName']==sid:
-            pm25_list.append(item['PM25SubIndex'])       
-            time_list.append(item['MonitorDate'])        
+    for item in data_list[1:]:
+
+        name = item[1]
+        date = item[2]
+        tsp = item[3]        
+
+        if name==sid:
+            pm25_list.append(tsp)       
+            time_list.append(date)        
 
     # plot
     plt.plot(time_list, aqi_list, '-o')
     plt.xlabel('時間')
-    plt.ylabel('PM2.5')
+    plt.ylabel('TSP')
 
     #下方x軸數值很奇怪, 加入反轉. 程式擺在數值後面.
     plt.xticks(time_list, rotation=90)    
     
     plt.grid()    
-    plt.savefig('img_pm25.png')
+    plt.savefig('img_tsp.png')
     plt.close()    
-    return send_file('img_pm25.png', mimetype='image/png')            
+    return send_file('img_tsp.png', mimetype='image/png')            
 
 
 #####################
