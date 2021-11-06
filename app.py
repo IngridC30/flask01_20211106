@@ -220,7 +220,7 @@ def pm25_data():
     time_list = list()
     for item in data:
         if item['SiteName']==sid:
-            pm25_list.append( float(item['PM25SubIndex']) )        
+            pm25_list.append(item['PM25SubIndex'])       
             time_list.append(item['MonitorDate'])        
 
     # plot
