@@ -201,6 +201,40 @@ def aqi_chart_24h():
     return send_file('img.png', mimetype='image/png')
 
 #####################
+#2021.11.06, INGRID ADD.
+# HW2 - 空氣品質圖表化
+#####################    
+@app.route('/pm25/data', methods=['GET'])
+def pm25_data():
+    url = 'https://data.epa.gov.tw/api/v1/aqx_p_434?limit=1000&api_key=9be7b239-557b-4c10-9775-78cadfc555e9&sort=ImportDate%20desc&format=json'
+    r = requests.get(url)
+    print(r)
+    data = r.json()
+
+    pm25_list = list()
+    time_list = list()
+    for item in data:
+        if item['SiteName']=='馬祖':
+        pm25_list.append( float(item['PM25SubIndex']) )        
+        time_list.append(item['MonitorDate'])        
+
+    # plot
+    plt.plot(time_list, aqi_list, '-o')
+    plt.xlabel('時間')
+    plt.ylabel('PM2.5')
+
+    #下方x軸數值很奇怪, 加入反轉. 程式擺在數值後面.
+    plt.xticks(time_list, rotation=90)    
+    
+    plt.grid()    
+    plt.savefig('img.png')
+    plt.close()    
+    return send_file('img.png', mimetype='image/png')            
+
+
+
+
+#####################
 # Scheduler
 #####################
 def job_wakeup():
