@@ -206,6 +206,11 @@ def aqi_chart_24h():
 #####################    
 @app.route('/pm25/data', methods=['GET'])
 def pm25_data():
+
+    sid = request.args.get('sid')
+    if not sid:
+        return jsonify({'result':'NG', 'log':'sid miss'})
+
     url = 'https://data.epa.gov.tw/api/v1/aqx_p_434?limit=1000&api_key=9be7b239-557b-4c10-9775-78cadfc555e9&sort=ImportDate%20desc&format=json'
     r = requests.get(url)
     print(r)
@@ -214,9 +219,9 @@ def pm25_data():
     pm25_list = list()
     time_list = list()
     for item in data:
-        if item['SiteName']=='馬祖':
-        pm25_list.append( float(item['PM25SubIndex']) )        
-        time_list.append(item['MonitorDate'])        
+        if item['SiteName']==sid:
+            pm25_list.append( float(item['PM25SubIndex']) )        
+            time_list.append(item['MonitorDate'])        
 
     # plot
     plt.plot(time_list, aqi_list, '-o')
@@ -227,11 +232,9 @@ def pm25_data():
     plt.xticks(time_list, rotation=90)    
     
     plt.grid()    
-    plt.savefig('img.png')
+    plt.savefig('img_pm25.png')
     plt.close()    
-    return send_file('img.png', mimetype='image/png')            
-
-
+    return send_file('img_pm25.png', mimetype='image/png')            
 
 
 #####################
