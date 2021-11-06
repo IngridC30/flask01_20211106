@@ -144,10 +144,9 @@ def aqi_chart_24h():
 
     # plot
     #plt.plot(aqi_list)    
-    plt.xlabel('時間', fontproperties = font)
-    plt.ylabel('AQI', fontproperties = font)
-    plt.legend(prop=font, bbox_to_anchor=(1.0, 1.0))
-
+    plt.xlabel('時間')
+    plt.ylabel('AQI')
+    
     plt.grid()    
     plt.savefig('img.png')
     plt.close()    
